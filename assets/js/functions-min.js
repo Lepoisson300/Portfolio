@@ -1046,62 +1046,6 @@
             }, 400)
         })
     }
-
-    let currentIndex = 1;
-
-    /*function updateSlider(currentIndex) {
-        var leftIndex = 0;
-        var centerIndex = 0;
-        var rightIndex = 0;
-        var indItemR = 0;
-        var indItemC = 0;
-        var indItemL = 0;
-
-        const sliderItems = document.querySelectorAll('.slider2--item');
-        const totalItems = sliderItems.length;
-        // Check if there are any slider items
-        if (totalItems === 0) {
-            console.error('No slider items found!');
-            return;
-        }
-        // Ensure all items are hidden initially
-        sliderItems.forEach(item => {
-            item.classList.remove('slider2--item-left', 'slider2--item-center', 'slider2--item-right');
-            item.style.opacity = 0;
-            item.style.display = 'none';  // Hide all items
-        });
-        // Calculate the left, center, and right indexes
-            leftIndex = (currentIndex - 1 ) % 3;
-            centerIndex = currentIndex%3;
-            rightIndex = (currentIndex + 1) % 3;
-            indItemR = (currentIndex + 1) % totalItems;
-            indItemC = (currentIndex + 1) % totalItems
-            indItemL = (currentIndex + 1) % totalItems
-        // Debugging logs to verify the indexes
-        console.log(`leftIndex: ${leftIndex}, centerIndex: ${centerIndex}, rightIndex: ${rightIndex}, indIndex: ${indItemR}`);
-        // Set classes and styles for the left, center, and right items
-        if (sliderItems[indItemL]) {
-            sliderItems[leftIndex].classList.add('slider2--item-left');
-            sliderItems[leftIndex].style.display = 'block';
-            sliderItems[leftIndex].style.opacity = 1;
-        }
-        if (sliderItems[indItemC]) {
-            sliderItems[centerIndex].classList.add('slider2--item-center');
-            sliderItems[centerIndex].style.display = 'block';
-            sliderItems[centerIndex].style.opacity = 1;
-        }
-        if (sliderItems[indItemR]) {
-            sliderItems[indItemR].classList.add('slider2--item-right');
-            sliderItems[indItemR].style.display = 'block';
-            sliderItems[indItemR].style.opacity = 1;
-        }
-    }*/
-
-
-       
-
-
-
     function r() {
         $(".work-request--information input").focusout(function() {
             var t = $(this).val();
