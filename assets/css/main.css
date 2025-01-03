@@ -1841,6 +1841,23 @@ button {
 		.work{
 			max-width: 100%;
 		}
+		.about--options{
+			max-width: 100%;
+			position: absolute;
+        	right: 30px;
+        	top: 70%;
+		}
+		.about--options > a {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+	
+		.about--options > a h3 {
+			margin: 0;
+			left: auto;
+		}
 		.container2 {
 			& > div {
 				& .content {
