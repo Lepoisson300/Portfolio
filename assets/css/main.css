@@ -288,22 +288,14 @@ img::-moz-selection {
 
 
 body {
-	background-color: #0c0c0c;
 	font-size: 14px;
 	line-height: 1.6;
 	font-family: "Montserrat", sans-serif;
-	color: #fff;
 	-webkit-font-smoothing: antialiased;
 	-webkit-text-size-adjust: 100%;
 	-webkit-tap-highlight-color: #FFF498;
-	font-family: 'Montserrat', sans-serif;
-	line-height: 1.6;
-	color: #fff;
-	background-color: #0c0c0c;
 	margin: 0;
-	font-family: 'Montserrat', sans-serif;
-	line-height: 1.6;
-	color: #fff;
+	color: white;
 	background-color: #0c0c0c;
 
 }
@@ -1356,7 +1348,6 @@ a {
 	-webkit-transform: translateZ(0) translateX(0) rotateY(0deg);
 	transform: translateZ(0) translateX(0) rotateY(0deg);
 	min-height: 100%;
-	outline: 30px solid #0f33ff;
 	-webkit-transition: -webkit-transform .4s;
 	transition: -webkit-transform .4s;
 	transition: transform .4s;
@@ -1386,7 +1377,6 @@ a {
 .effect-rotate-left--animate .container {
 	-webkit-transform: translateZ(-1800px) translateX(-50%) rotateY(45deg);
 	transform: translateZ(-1800px) translateX(-50%) rotateY(45deg);
-	outline: 30px solid #0f33ff
 }
 
 .outer-nav {
@@ -1572,13 +1562,6 @@ button {
 
 
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap");
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-
 
 .container2 {
   width: 100%;
@@ -1798,9 +1781,7 @@ button {
 	/* Layout Containers */
 	.container, .container2 {
 		width: 100%;
-		max-width: 1200px;
 		margin: 0 auto;
-		padding: 0 15px;
 	}
 
 	/* Flexbox Utility */
@@ -1841,6 +1822,9 @@ button {
 
 
 	@media (max-width: 576px) {
+		body{
+			max-width: 100%;
+		}
 		.container2 > div {
 			flex: 1 1 100%;
 			max-width: 100%;
