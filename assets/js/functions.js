@@ -7,69 +7,9 @@ function hideAllSliderItems() {
     });
 }
 
-// Function to show a specific slider item by index
-function showSliderItem(index) {
-    const sliderItems = document.querySelectorAll('.slider--item');
-    hideAllSliderItems(); // Hide all items before showing the next one
-    sliderItems[index].style.display = 'block'; // Show the selected item
-}
-
 let currentIndex = 0; // Keep track of the current index
 
 // Function to show the next slider item
-function nextSlide() {
-    const sliderItems = document.querySelectorAll('.slider--item');
-    currentIndex = (currentIndex + 1) % sliderItems.length; // Increment index
-    showSliderItem(currentIndex); // Show the next slider item
-}
-
-// Function to show the previous slider item
-function prevSlide() {
-    const sliderItems = document.querySelectorAll('.slider--item');
-    currentIndex = (currentIndex - 1 + sliderItems.length) % sliderItems.length; // Decrement index
-    showSliderItem(currentIndex); // Show the previous slider item
-}
-
-// Ensure that the first slider item is visible on page load
-document.addEventListener('DOMContentLoaded', () => {
-    showSliderItem(0);
-});
-
-
-$( document ).ready(function() {a
-
-  // DOMMouseScroll included for firefox support
-  var canScroll = true,
-      scrollController = null;
-  $(this).on('mousewheel DOMMouseScroll', function(e){
-
-    if (!($('.outer-nav').hasClass('is-vis'))) {
-
-      e.preventDefault();
-
-      var delta = (e.originalEvent.wheelDelta) ? -e.originalEvent.wheelDelta : e.originalEvent.detail * 20;
-
-      if (delta > 50 && canScroll) {
-        canScroll = false;
-        clearTimeout(scrollController);
-        scrollController = setTimeout(function(){
-          canScroll = true;
-        }, 800);
-        updateHelper(1);
-      }
-      else if (delta < -50 && canScroll) {
-        canScroll = false;
-        clearTimeout(scrollController);
-        scrollController = setTimeout(function(){
-          canScroll = true;
-        }, 800);
-        updateHelper(-1);
-      }
-
-    }
-
-  });
-
   $('.side-nav li, .outer-nav li').click(function(){
 
     if (!($(this).hasClass('is-active'))) {
@@ -313,4 +253,3 @@ $( document ).ready(function() {a
   workSlider();
   transitionLabels();
 
-});

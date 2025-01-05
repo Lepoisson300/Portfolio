@@ -1636,6 +1636,7 @@ button {
       flex: 0 0 250px;
       box-shadow: 1px 3px 15px #7645d8;
       transform: translatey(-30px);
+	  transition: 1s;
     }
 
     &:hover .content {
