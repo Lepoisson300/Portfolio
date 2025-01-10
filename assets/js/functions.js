@@ -221,7 +221,7 @@ let currentIndex = 0; // Keep track of the current index
         }
       }
 
-    }, 400);
+    }, 100);
 
     $('.slider').animate({ opacity : 1 }, 400);
 

@@ -1,5 +1,17 @@
 // Retained necessary functions only
 
+// Add this at the top of your file
+function debounce(func, wait) {
+    let timeout;
+    return function() {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(context, args);
+        }, wait);
+    };
+}
 
 const translations = {
     en: {
@@ -185,11 +197,94 @@ $(document).keyup(function(e) {
     }
 });
 
+
+
+let lastScrollTime = Date.now();
+const scrollCooldown = 1000; // Adjust this value to control scroll frequency (in milliseconds)
+
 $(this).on('mousewheel DOMMouseScroll', function(e) {
     if (!$('.outer-nav').hasClass('is-vis')) {
         e.preventDefault();
-        var delta = e.originalEvent.wheelDelta ? -e.originalEvent.wheelDelta : e.originalEvent.detail;
-        updateHelper(delta);
+        
+        const currentTime = Date.now();
+        if (currentTime - lastScrollTime < scrollCooldown) {
+            return; // Ignore scroll if not enough time has passed
+        }
+        
+        // Update last scroll time
+        lastScrollTime = currentTime;
+        
+        // Get scroll direction with reduced sensitivity
+        const delta = e.originalEvent.wheelDelta ? -e.originalEvent.wheelDelta : e.originalEvent.detail;
+        // Reduce the sensitivity by requiring a larger scroll
+        if (Math.abs(delta) > 10) { // Adjust this threshold to change sensitivity
+            // Debounce the updateHelper call
+            debounce(function() {
+                updateHelper(delta);
+            }, 50)(); // 50ms delay, adjust as needed
+        }
+    }
+});
+
+// Update the Hammer configuration
+var targetElement = document.getElementById('viewport'),
+    mc = new Hammer(targetElement);
+
+// Enable both vertical and horizontal swipes
+mc.get('swipe').set({ 
+    direction: Hammer.DIRECTION_ALL,
+    threshold: 50,          // Minimum distance required before recognizing
+    velocity: 0.3,          // Minimum velocity required before recognizing
+    touchAction: 'pan-y'    // Allow native vertical scrolling
+});
+
+// Add touch action style to viewport
+document.getElementById('viewport').style.touchAction = 'pan-y';
+
+
+// Add these variables at the top of your file
+let touchStartY = 0;
+let isScrolling = false;
+let lastSwipeTime = Date.now();
+
+// Add touch event listeners
+targetElement.addEventListener('touchstart', function(e) {
+    touchStartY = e.touches[0].clientY;
+    isScrolling = false;
+});
+
+targetElement.addEventListener('touchmove', function(e) {
+    if (isScrolling) return;
+    
+    const touchY = e.touches[0].clientY;
+    const deltaY = touchStartY - touchY;
+    
+    // Check if it's a deliberate swipe
+    if (Math.abs(deltaY) > 50) {
+        isScrolling = true;
+        const currentTime = Date.now();
+        
+        // Add cooldown to prevent rapid scrolling
+        if (currentTime - lastSwipeTime > 1000) { // 1 second cooldown
+            lastSwipeTime = currentTime;
+            updateHelper(deltaY > 0 ? 1 : -1);
+        }
+    }
+});
+
+// Update the Hammer swipe handler
+mc.on('swipe', function(e) {
+    const currentTime = Date.now();
+    
+    // Only handle swipe if enough time has passed since last swipe
+    if (currentTime - lastSwipeTime > 1000) {
+        lastSwipeTime = currentTime;
+        
+        if (e.direction === Hammer.DIRECTION_UP) {
+            updateHelper(1);
+        } else if (e.direction === Hammer.DIRECTION_DOWN) {
+            updateHelper(-1);
+        }
     }
 });
 
