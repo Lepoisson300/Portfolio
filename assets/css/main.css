@@ -1823,6 +1823,9 @@ button {
 
 
 	@media (max-width: 576px) {
+		.outer-nav>li.is-vis{
+			font-size: 30px;
+		}
 		body{
 			max-width: 100%;
 		}
