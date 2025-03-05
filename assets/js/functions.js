@@ -66,31 +66,22 @@ let currentIndex = 0; // Keep track of the current index
         lastItem = $('.side-nav').children().length - 1,
         nextPos = 0;
 
-    if (param.type === "swipeup" || param.keyCode === 40 || param > 0) {
+    if (param.type === "swipeup" || param.keyCode === 40 || param > 0 || param.deltaY > 0 || (param.deltaY === undefined && param.type === "touchmove" && param.changedTouches[0].clientY < param.touches[0].clientY)) {
       if (curPos !== lastItem) {
         nextPos = curPos + 1;
-        updateNavs(nextPos);
-        updateContent(curPos, nextPos, lastItem);
+      } else {
+        nextPos = 0;
       }
-      else {
-        updateNavs(nextPos);
-        updateContent(curPos, nextPos, lastItem);
-      }
-    }
-    else if (param.type === "swipedown" || param.keyCode === 38 || param < 0){
-      if (curPos !== 0){
+    } else if (param.type === "swipedown" || param.keyCode === 38 || param < 0 || param.deltaY < 0 || (param.deltaY === undefined && param.type === "touchmove" && param.changedTouches[0].clientY > param.touches[0].clientY)) {
+      if (curPos !== 0) {
         nextPos = curPos - 1;
-        updateNavs(nextPos);
-        updateContent(curPos, nextPos, lastItem);
-      }
-      else {
+      } else {
         nextPos = lastItem;
-        updateNavs(nextPos);
-        updateContent(curPos, nextPos, lastItem);
       }
     }
 
-  }
+    updateNavs(nextPos);
+    updateContent(curPos, nextPos, lastItem);
 
   // sync side and outer navigations
   function updateNavs(nextPos) {
@@ -252,4 +243,4 @@ let currentIndex = 0; // Keep track of the current index
   outerNav();
   workSlider();
   transitionLabels();
-
+  }

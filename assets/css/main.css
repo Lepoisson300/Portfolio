@@ -19,6 +19,9 @@
 	font-style: normal
 }
 
+@media (max-width: 768px) {
+
+}
 @font-face {
 	font-family: 'Montserrat';
 	src: url("fonts/Montserrat-Bold.eot");
@@ -1795,7 +1798,19 @@ button {
 
 
 	@media (max-width: 768px) {
-		
+
+		button.language-toggle {
+			background-image: url("path-to-current-language-flag.png"); /* Replace with the valid flag image path */
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			width: 40px; /* Adjust as needed */
+			height: 30px; /* Adjust as needed */
+			border: none;
+			display: inline-block; /* Ensures the button remains visible */
+			text-indent: -9999px; /* Hides text if any */
+			overflow: hidden; /* Prevents any content spilling */
+		}
 		.l-side-nav {
 			display: none;
 			flex-direction: column;

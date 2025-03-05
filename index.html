@@ -17,17 +17,21 @@
       <div class="l-wrapper">
         <header class="header">
           <div class="header--nav-toggle">
-            
-          </div>
-          
 
+          </div>
+          <button id="languageSwitch" onclick="toggleLanguage();" class="nav-btn"
+                  style="background-color: #28a745; color: white; border: 1px solid #28a745; border-radius: 8px; padding: 8px 16px; font-size: 12px; cursor: pointer; transition: all 0.3s ease;">
+            test
+          </button>
         </header>
+
+
         <nav class="l-side-nav">
           <ul class="side-nav">
-            <li id="sldH" class="is-active"><span>Home</span></li>
-            <li id="sldI"><span>Introduction</span></li>
-            <li id="sldP"><span>Projects</span></li>
-            <li id="sldC"><span>Contact</span></li>
+            <li class="is-active"><span  id="sldH">Home</span></li>
+            <li ><span id="sldI">Introduction</span></li>
+            <li ><span id="sldP">Projects</span></li>
+            <li ><span id="sldC">Contact</span></li>
           </ul>
         </nav>
         <ul class="l-main-content main-content">
@@ -47,8 +51,8 @@
                   <p id="pAtouts2">Discover my passions and who I am.</p>
                 </a>
                 <a href="#0">
-                  <h3>Reachable</h3>
-                  <p>Check out my pages and links to resources associated with me.</p>
+                  <h3 id="H3atouts3">Reachable</h3>
+                  <p id="pAtouts3">Check out my pages and links to resources associated with me.</p>
                 </a>
               </div>
             </div>
@@ -150,8 +154,8 @@
               <div class="contact-container">
                 <h2>Contact Me</h2>
                 <p>If you have any questions or would like to collaborate, feel free to reach out!</p>
-                
-              
+
+
             
                 <div class="contact-buttons">
                   <a href="assets/pdf/CVfrancais.pdf" target="_blank" class="contact-btn">French CV</a>

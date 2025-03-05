@@ -12,46 +12,118 @@ function debounce(func, wait) {
         }, wait);
     };
 }
+let currentLanguage = "English";
 
-const translations = {
-    en: {
-        title: "Portfolio Rémi Puigsech",
-        sldH: "Home",
-        sldI: "Introduction",
-        sldP: "Projects",
-        sldC: "Contact",
-        H1Titre: "Rémi Puigsech Here begins innovation",
-        H3atouts1: "Innovative Relentless",
-        pAtouts1: "Discover all completed projects, personal and academic.",
-        H3atouts2: "Kind & Altruistic",
-        pAtouts2 : "Discover my passions and who I am."
-    },
-    fr: {
-        title: "Rémi Puigsech Portfolio",
-        sldH: "Accueil",
-        sldI: "Introduction",
-        sldP: "Projets",
-        sldC: "Contact",
-        H1Titre: "Rémi Puigsech ici commence l'innovation",
-        H3atouts1: "Innovative Relentless",
-        pAtouts1: "Discover all completed projects, personal and academic.",
-        H3atouts2: "Kind & Altruistic",
-        pAtouts2 : "Discover my passions and who I am."
-    }
-};
+function toggleLanguage() {
+    const translations = {
 
-function translate(lang) {
-    document.getElementById('title').innerText = translations[lang].title;
-    document.getElementById('sldH').innerText = translations[lang].sldH;
-    document.getElementById('sldI').innerText = translations[lang].sldI;
-    document.getElementById('sldP').innerText = translations[lang].sldP;
-    document.getElementById('sldC').innerText = translations[lang].sldC;
-    document.getElementById('H1Titre').innerText = translations[lang].H1Titre;
-    document.getElementById('H3atouts1').innerText = translations[lang].H3atouts1;
-    document.getElementById('pAtouts1').innerText = translations[lang].pAtouts1;
-    document.getElementById('H3atouts2').innerText = translations[lang].H3atouts2;
-    document.getElementById('pAtouts2').innerText = translations[lang].pAtouts2;
+
+        English: {
+            H3atouts2: "Kind & Altruistic",
+            H1Titre: "Rémi Puigsech <br> Here begins innovation </br>",
+            sldH:"Home",
+            sldI:"Introduction",
+            sldP:"Projects",
+            sldC:"Contact",
+            H3atouts1:"Innovative &amp; Relentless",
+            pAtouts1:"Discover all completed projects, personal and academic.",
+            pAtouts2: "Discover my passions and who I am.",
+            H3atouts3: "Reachable",
+            pAtouts3: "Check out my pages and links to resources associated with me.",
+            aboutTitle: "Musician<br>Worker<br>Athlete<br>Adventurer",
+            activities: "Activities",
+            services: "Services",
+            discoveries: "Discoveries",
+            projectsTitle: "Selected Projects",
+            contactTitle: "Contact Me",
+            contactDesc: "If you have any questions or would like to collaborate, feel free to reach out!",
+            pdfLinks: {
+                parcours: "assets/pdf/parcours.pdf",
+                activities: "assets/pdf/Activités.pdf",
+                services: "assets/pdf/Prestations.pdf",
+                discoveries: "assets/pdf/découvertes.pdf",
+                cvFrench: "assets/pdf/CVfrancais.pdf",
+                cvEnglish: "assets/pdf/CVenglais.pdf",
+            },
+            buttonLabel: "English",
+        },
+        Français: {
+            H3atouts2: "A l'écoute & Altruiste",
+            H1Titre: "Rémi Puigsech <br> Ici commence l'innovation </br>",
+            sldH:"Accueil",
+            sldI:"Introduction",
+            sldP:"Projets",
+            sldC:"Contact",
+            H3atouts1:"Innovant &amp; Tenace",
+            pAtouts1:"Découvrez tous les projets réalisés, personnels et académiques.",
+            pAtouts2: "Découvrez mes passions et qui je suis.",
+            H3atouts3: "Accessible",
+            pAtouts3: "Consultez mes pages et liens vers des ressources associées à moi.",
+            aboutTitle: "Musicien<br>Travailleur<br>Athlète<br>Aventurier",
+            activities: "Activités",
+            services: "Prestations",
+            discoveries: "Découvertes",
+            projectsTitle: "Projets Sélectionnés",
+            contactTitle: "Contactez-moi",
+            contactDesc: "Si vous avez des questions ou souhaitez collaborer, n'hésitez pas à me contacter!",
+            pdfLinks: {
+                parcours: "assets/pdf/parcours_FR.pdf",
+                activities: "assets/pdf/Activités_FR.pdf",
+                services: "assets/pdf/Prestations_FR.pdf",
+                discoveries: "assets/pdf/découvertes_FR.pdf",
+                cvFrench: "assets/pdf/CVfrancais_FR.pdf",
+                cvEnglish: "assets/pdf/CVenglais_FR.pdf",
+            },
+            buttonLabel: "Français",
+        },
+    };
+
+    // Toggle language
+    currentLanguage = currentLanguage === "English" ? "Français" : "English";
+    const lang = translations[currentLanguage];
+
+    // Update text content
+    document.getElementById("H3atouts1").innerHTML = lang.H3atouts1;
+    document.getElementById("pAtouts1").innerHTML = lang.pAtouts1;
+    
+    document.getElementById("H3atouts2").innerHTML = lang.H3atouts2;
+    document.getElementById("pAtouts2").innerText = lang.pAtouts2;
+
+    document.getElementById("H3atouts3").innerHTML = lang.H3atouts3;
+    document.getElementById("pAtouts3").innerHTML = lang.pAtouts3;
+    
+    document.getElementById("H1Titre").innerHTML = lang.H1Titre;
+    document.getElementById("sldH").innerText = lang.sldH;
+    document.getElementById("sldI").innerText = lang.sldI;
+    document.getElementById("sldP").innerText = lang.sldP;
+    document.getElementById("sldC").innerText = lang.sldC;
+
+    const reachableSection = document.querySelector('a[href="#0"]');
+    reachableSection.querySelector("h3").innerHTML = lang.reachableTitle;
+    reachableSection.querySelector("p").innerText = lang.reachableDescription;
+
+    document.querySelector(".about--banner h2").innerHTML = lang.aboutTitle;
+    document.querySelector(".about--options a:nth-child(1) h3").innerHTML = lang.activities;
+    document.querySelector(".about--options a:nth-child(2) h3").innerHTML = lang.services;
+    document.querySelector(".about--options a:nth-child(3) h3").innerHTML = lang.discoveries;
+
+    document.querySelector(".work h2").innerHTML = lang.projectsTitle;
+
+    document.querySelector(".contact-container h2").innerHTML = lang.contactTitle;
+    document.querySelector(".contact-container p").innerText = lang.contactDesc;
+
+    // Update PDF links
+    document.querySelector('a[href="assets/pdf/parcours.pdf"]').setAttribute("href", lang.pdfLinks.parcours);
+    document.querySelector('.about--options a:nth-child(1)').setAttribute("href", lang.pdfLinks.activities);
+    document.querySelector('.about--options a:nth-child(2)').setAttribute("href", lang.pdfLinks.services);
+    document.querySelector('.about--options a:nth-child(3)').setAttribute("href", lang.pdfLinks.discoveries);
+    document.querySelector('.contact-btn[href="assets/pdf/CVfrancais.pdf"]').setAttribute("href", lang.pdfLinks.cvFrench);
+    document.querySelector('.contact-btn[href="assets/pdf/CVenglais.pdf"]').setAttribute("href", lang.pdfLinks.cvEnglish);
+
+    // Update button text
+    document.getElementById("languageSwitch").innerText = lang.buttonLabel;
 }
+
 
 function updateNavs(nextPos) {
     $('.side-nav, .outer-nav').children().removeClass('is-active');
@@ -316,6 +388,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('btnFrench').addEventListener('click', function() {
         translate('fr');
     });
+
+    document.getElementById('languageSwitch').addEventListener('click', toggleLanguage);
 });
 
 outerNav();
