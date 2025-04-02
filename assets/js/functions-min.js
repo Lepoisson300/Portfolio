@@ -16,8 +16,6 @@ let currentLanguage = "English";
 
 function toggleLanguage() {
     const translations = {
-
-
         English: {
             H3atouts2: "Kind & Altruistic",
             H1Titre: "Rémi Puigsech <br> Here begins innovation </br>",
@@ -45,7 +43,7 @@ function toggleLanguage() {
                 cvFrench: "assets/pdf/CVfrancais.pdf",
                 cvEnglish: "assets/pdf/CVenglais.pdf",
             },
-            buttonLabel: "English",
+            buttonLabel: "Français",  // Change this to the language you want to switch TO
         },
         Français: {
             H3atouts2: "A l'écoute & Altruiste",
@@ -74,7 +72,7 @@ function toggleLanguage() {
                 cvFrench: "assets/pdf/CVfrancais_FR.pdf",
                 cvEnglish: "assets/pdf/CVenglais_FR.pdf",
             },
-            buttonLabel: "Français",
+            buttonLabel: "English",  // Change this to the language you want to switch TO
         },
     };
 
@@ -98,27 +96,36 @@ function toggleLanguage() {
     document.getElementById("sldP").innerText = lang.sldP;
     document.getElementById("sldC").innerText = lang.sldC;
 
-    const reachableSection = document.querySelector('a[href="#0"]');
-    reachableSection.querySelector("h3").innerHTML = lang.reachableTitle;
-    reachableSection.querySelector("p").innerText = lang.reachableDescription;
+    // Remove problematic section or fix it
+    // const reachableSection = document.querySelector('a[href="#0"]');
+    // reachableSection.querySelector("h3").innerHTML = lang.reachableTitle;
+    // reachableSection.querySelector("p").innerText = lang.reachableDescription;
 
+    // Update about section
     document.querySelector(".about--banner h2").innerHTML = lang.aboutTitle;
     document.querySelector(".about--options a:nth-child(1) h3").innerHTML = lang.activities;
     document.querySelector(".about--options a:nth-child(2) h3").innerHTML = lang.services;
     document.querySelector(".about--options a:nth-child(3) h3").innerHTML = lang.discoveries;
 
+    // Update work section
     document.querySelector(".work h2").innerHTML = lang.projectsTitle;
 
+    // Update contact section
     document.querySelector(".contact-container h2").innerHTML = lang.contactTitle;
     document.querySelector(".contact-container p").innerText = lang.contactDesc;
 
     // Update PDF links
-    document.querySelector('a[href="assets/pdf/parcours.pdf"]').setAttribute("href", lang.pdfLinks.parcours);
+    document.querySelector('a[href="assets/pdf/parcours.pdf"], a[href="assets/pdf/parcours_FR.pdf"]').setAttribute("href", lang.pdfLinks.parcours);
     document.querySelector('.about--options a:nth-child(1)').setAttribute("href", lang.pdfLinks.activities);
     document.querySelector('.about--options a:nth-child(2)').setAttribute("href", lang.pdfLinks.services);
     document.querySelector('.about--options a:nth-child(3)').setAttribute("href", lang.pdfLinks.discoveries);
-    document.querySelector('.contact-btn[href="assets/pdf/CVfrancais.pdf"]').setAttribute("href", lang.pdfLinks.cvFrench);
-    document.querySelector('.contact-btn[href="assets/pdf/CVenglais.pdf"]').setAttribute("href", lang.pdfLinks.cvEnglish);
+    
+    // Update CV links - using querySelectorAll to catch both states
+    const frenchCVLinks = document.querySelectorAll('.contact-btn[href="assets/pdf/CVfrancais.pdf"], .contact-btn[href="assets/pdf/CVfrancais_FR.pdf"]');
+    frenchCVLinks.forEach(link => link.setAttribute("href", lang.pdfLinks.cvFrench));
+    
+    const englishCVLinks = document.querySelectorAll('.contact-btn[href="assets/pdf/CVenglais.pdf"], .contact-btn[href="assets/pdf/CVenglais_FR.pdf"]');
+    englishCVLinks.forEach(link => link.setAttribute("href", lang.pdfLinks.cvEnglish));
 
     // Update button text
     document.getElementById("languageSwitch").innerText = lang.buttonLabel;
@@ -314,49 +321,144 @@ mc.get('swipe').set({
 document.getElementById('viewport').style.touchAction = 'pan-y';
 
 
-// Add these variables at the top of your file
+// Replace your current touch and scroll event handling with this improved version
+
+// Variables for touch handling
 let touchStartY = 0;
+let touchStartX = 0;
 let isScrolling = false;
-let lastSwipeTime = Date.now();
 
-// Add touch event listeners
-targetElement.addEventListener('touchstart', function(e) {
+// Clear any existing event listeners first
+targetElement.removeEventListener('touchstart', touchStartHandler);
+targetElement.removeEventListener('touchmove', touchMoveHandler);
+
+// Add improved touch event handlers
+function touchStartHandler(e) {
     touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
     isScrolling = false;
-});
+}
 
-targetElement.addEventListener('touchmove', function(e) {
-    if (isScrolling) return;
+function touchMoveHandler(e) {
+    if (isScrolling || $('.outer-nav').hasClass('is-vis')) return;
     
     const touchY = e.touches[0].clientY;
+    const touchX = e.touches[0].clientX;
     const deltaY = touchStartY - touchY;
+    const deltaX = touchStartX - touchX;
     
-    // Check if it's a deliberate swipe
-    if (Math.abs(deltaY) > 50) {
+    // Only handle vertical swipes (ignore horizontal ones)
+    if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 70) {
         isScrolling = true;
         const currentTime = Date.now();
         
-        // Add cooldown to prevent rapid scrolling
-        if (currentTime - lastSwipeTime > 1000) { // 1 second cooldown
-            lastSwipeTime = currentTime;
-            updateHelper(deltaY > 0 ? 1 : -1);
+        // Add longer cooldown to prevent rapid scrolling
+        if (currentTime - lastScrollTime > scrollCooldown) {
+            lastScrollTime = currentTime;
+            
+            // Process only one section at a time
+            const curActive = $('.side-nav').find('.is-active');
+            const curPos = $('.side-nav').children().index(curActive);
+            const lastItem = $('.side-nav').children().length - 1;
+            
+            let nextPos;
+            if (deltaY > 0) { // Swipe up
+                nextPos = curPos === lastItem ? curPos : curPos + 1;
+            } else { // Swipe down
+                nextPos = curPos === 0 ? curPos : curPos - 1;
+            }
+            
+            // Only update if we're actually changing position
+            if (nextPos !== curPos) {
+                updateNavs(nextPos);
+                updateContent(curPos, nextPos, lastItem);
+            }
         }
     }
+}
+
+targetElement.addEventListener('touchstart', touchStartHandler);
+targetElement.addEventListener('touchmove', touchMoveHandler);
+
+// Update the Hammer configuration
+if (mc) {
+    mc.destroy(); // Remove existing hammer instance
+}
+mc = new Hammer(targetElement);
+
+// Configure Hammer with higher thresholds for mobile
+mc.get('swipe').set({ 
+    direction: Hammer.DIRECTION_VERTICAL,
+    threshold: 70,          // Higher threshold
+    velocity: 0.5,          // Higher velocity requirement
+    touchAction: 'pan-x'    // Allow horizontal scrolling but catch vertical
 });
 
 // Update the Hammer swipe handler
 mc.on('swipe', function(e) {
+    if ($('.outer-nav').hasClass('is-vis')) return;
+    
     const currentTime = Date.now();
     
     // Only handle swipe if enough time has passed since last swipe
-    if (currentTime - lastSwipeTime > 1000) {
-        lastSwipeTime = currentTime;
+    if (currentTime - lastScrollTime > scrollCooldown) {
+        lastScrollTime = currentTime;
         
+        // Get current position
+        const curActive = $('.side-nav').find('.is-active');
+        const curPos = $('.side-nav').children().index(curActive);
+        const lastItem = $('.side-nav').children().length - 1;
+        
+        let nextPos;
         if (e.direction === Hammer.DIRECTION_UP) {
-            updateHelper(1);
+            nextPos = curPos === lastItem ? curPos : curPos + 1;
         } else if (e.direction === Hammer.DIRECTION_DOWN) {
-            updateHelper(-1);
+            nextPos = curPos === 0 ? curPos : curPos - 1;
+        } else {
+            return; // Ignore horizontal swipes
         }
+        
+        // Only update if we're actually changing position
+        if (nextPos !== curPos) {
+            updateNavs(nextPos);
+            updateContent(curPos, nextPos, lastItem);
+        }
+    }
+});
+
+// Also update the mousewheel handler for completeness
+$(this).off('mousewheel DOMMouseScroll').on('mousewheel DOMMouseScroll', function(e) {
+    if ($('.outer-nav').hasClass('is-vis')) return;
+    
+    e.preventDefault();
+    
+    const currentTime = Date.now();
+    if (currentTime - lastScrollTime < scrollCooldown) {
+        return; // Ignore scroll if not enough time has passed
+    }
+    
+    // Update last scroll time
+    lastScrollTime = currentTime;
+    
+    // Get scroll direction
+    const delta = e.originalEvent.wheelDelta ? -e.originalEvent.wheelDelta : e.originalEvent.detail;
+    
+    // Get current position
+    const curActive = $('.side-nav').find('.is-active');
+    const curPos = $('.side-nav').children().index(curActive);
+    const lastItem = $('.side-nav').children().length - 1;
+    
+    let nextPos;
+    if (delta > 0) { // Scroll down
+        nextPos = curPos === lastItem ? curPos : curPos + 1;
+    } else { // Scroll up
+        nextPos = curPos === 0 ? curPos : curPos - 1;
+    }
+    
+    // Only update if we're actually changing position
+    if (nextPos !== curPos) {
+        updateNavs(nextPos);
+        updateContent(curPos, nextPos, lastItem);
     }
 });
 
@@ -380,17 +482,17 @@ function updateHelper(e) {
     updateContent(curPos, nextPos, lastItem);
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('btnEnglish').addEventListener('click', function() {
-        translate('en');
-    });
 
-    document.getElementById('btnFrench').addEventListener('click', function() {
-        translate('fr');
-    });
-
-    document.getElementById('languageSwitch').addEventListener('click', toggleLanguage);
+document.getElementById('languageSwitch').addEventListener('click', function() {
+    if (this.innerText === "Français" || this.innerText === "French") {
+        console.log("The button text is in French.");
+        this.innerText = "English"
+    } else if (this.innerText === "English") {
+        console.log("The button text is in English.");
+        this.innerText = "Français"
+    }
 });
+
 
 outerNav();
 workSlider();
