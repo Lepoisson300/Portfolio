@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Home, User, Briefcase, Mail, Download, Github, Linkedin, ExternalLink, ChevronDown, Eye, FileText } from 'lucide-react';
+import { Menu, X, Home, User, Briefcase, Mail, Download, Github, Linkedin, ChevronDown, Eye, FileText } from 'lucide-react';
 
 // --- COMPOSANT MATRIX RAIN ---
 const MatrixRain = () => {
@@ -512,7 +512,7 @@ export default function App() {
                 <div 
                   key={idx} 
                   onClick={() => setSelectedProject(proj)}
-                  className="min-w-[85vw] md:min-w-0 snap-center group block bg-[#1a1b1e]/90 backdrop-blur-sm rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-blue-900/20 transition-all hover:-translate-y-2 border border-gray-800 flex flex-col h-full cursor-pointer"
+                  className="min-w-[85vw] md:min-w-0 snap-center group bg-[#1a1b1e]/90 backdrop-blur-sm rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-blue-900/20 transition-all hover:-translate-y-2 border border-gray-800 flex flex-col h-full cursor-pointer"
                 >
                   <div className="h-48 bg-gray-800/50 relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent group-hover:from-blue-600/20 transition-colors z-10"></div>
