@@ -3,11 +3,13 @@ import { Menu, X, Home, User, Briefcase, Mail, Download, Github, Linkedin, Exter
 
 // --- COMPOSANT MATRIX RAIN ---
 const MatrixRain = () => {
-  const canvasRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
     let width = window.innerWidth;
     let height = window.innerHeight;
@@ -15,8 +17,8 @@ const MatrixRain = () => {
     canvas.height = height;
 
     const fontSize = 14;
-    const columns = width / fontSize;
-    const drops = [];
+    const columns = Math.floor(width / fontSize);
+    const drops: number[] = [];
 
     // Initialisation des gouttes
     for (let x = 0; x < columns; x++) {
@@ -518,7 +520,7 @@ export default function App() {
                       src={proj.img} 
                       alt={proj.title} 
                       className="w-full h-full object-cover transform group-hover:scale-110 duration-500"
-                      onError={(e) => {e.target.src='https://placehold.co/600x400?text=Project'}}
+                      onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => { e.currentTarget.src = 'https://placehold.co/600x400?text=Project'; }}
                     />
                     
                     {/* Overlay "Voir plus" au survol */}
