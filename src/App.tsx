@@ -81,6 +81,8 @@ export default function App() {
     link: string;
     tags: string[];
     img: string;
+    img1?: string;
+    img2?: string;
   }
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -227,43 +229,49 @@ export default function App() {
     { 
       title: lang === 'en' ? "AI Creation Project" : "Projet I.A.", 
       desc: lang === 'en' ? "Implementation of a strategic board game AI using Minimax algorithms." : "Implémentation d'une I.A. de jeu de plateau stratégique utilisant l'algorithme Minimax.", 
-      link: "assets/pdf/Towa.pdf",
-      tags: ["AI", "Java", "Algorithms"],
-      img: "/towa_6.png" // Assurez-vous que cette image est dans le dossier public
+      link: "/pdf/Towa.pdf",
+      tags: ["Java"],
+      img: "/towa_6.png",
+      img1:"" ,
+      img2: ""
     },
     { 
       title: lang === 'en' ? "Robotics Project" : "Projet Robotique", 
       desc: lang === 'en' ? "Design and C++ programming of an autonomous mobile robot." : "Conception et programmation C++ d'un robot mobile autonome.", 
-      link: "assets/pdf/Robotique.pdf",
-      tags: ["C++", "Arduino", "Embedded"],
-      img: "/guido.png"
+      link: "/pdf/Robotique.pdf",
+      tags: ["C++", "Arduino", "Fusion360"],
+      img: "/guido.png",
+      img1: "/fusion360.png",
+      img2: "/lidar.jpg"
     },
     { 
       title: lang === 'en' ? "Video Game Project" : "Projet Jeu Vidéo", 
       desc: lang === 'en' ? "Full cycle creation and publication of a 3D game with Unreal Engine." : "Création complète et publication d'un jeu 3D avec Unreal Engine.", 
-      link: "assets/pdf/UE.pdf",
+      link: "/pdf/UE.pdf",
       tags: ["Unreal Engine", "C++", "Blueprints"],
-      img: "/UE.png"
+      img: "/UE.png",
+      img1: "/halo.jpeg" ,
+      img2: "/blueprint.jpeg"
     },
     { 
       title: lang === 'en' ? "R/place Project" : "Projet R/place", 
       desc: lang === 'en' ? "Complex API usage to recreate the social experiment Reddit's R/place." : "Utilisation d'API complexe pour recréer l'expérience sociale Reddit R/place.", 
-      link: "assets/pdf/Rplace.pdf",
-      tags: ["Python", "API", "Data Processing"],
+      link: "/pdf/Rplace.pdf",
+      tags: ["API", "React", "Node.js"],
       img: "/pixelWar.png"
     },
     { 
       title: lang === 'en' ? "Application Project" : "Projet Application", 
       desc: lang === 'en' ? "Development and deployment of a C# environment management application." : "Développement et déploiement d'une application C# de gestion environnementale.", 
-      link: "assets/pdf/CSharp.pdf",
-      tags: ["C#", ".NET", "WPF"],
-      img: "https://placehold.co/600x400/15803d/FFF?text=App+.NET"
+      link: "/pdf/CSharp.pdf",
+      tags: ["C#", ".NET", "WPF","python","SQL"],
+      img: "/planete.png"
     },
     { 
       title: lang === 'en' ? "Odomo Project" : "Projet Odomo", 
       desc: lang === 'en' ? "Java application aggregating real-time weather data." : "Application Java agrégeant des données météorologiques en temps réel.", 
-      link: "assets/pdf/Odomo.pdf",
-      tags: ["Java", "Swing", "Real-time"],
+      link: "/pdf/Odomo.pdf",
+      tags: ["Java"],
       img: "/Odomo.png"
     },
   ];
@@ -314,11 +322,11 @@ export default function App() {
                 {/* Galerie Photos (Simulée avec Placeholders) */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                   {[1, 2].map((i) => (
-                    <div key={i} className="rounded-xl overflow-hidden bg-gray-800 border border-gray-700 group">
+                    <div key={i} className="rounded-xl overflow-hidden flex justify-center bg-gray-800 border border-gray-700 group">
                       <img 
-                          src={`https://placehold.co/600x400/25262b/FFF?text=${encodeURIComponent(selectedProject.title)}+${i}`} 
+                          src={i === 1 ? selectedProject.img1 : selectedProject.img2} 
                           alt={`Preview ${i}`}
-                          className="w-full h-48 md:h-64 object-cover transform transition duration-500 group-hover:scale-105"
+                          className=" h-40 md:h-64 object-cover transform transition duration-500 group-hover:scale-105"
                       />
                     </div>
                   ))}
@@ -475,10 +483,10 @@ export default function App() {
               
               <div className="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
                 <a href="/pdf/parcours.pdf" target="_blank" className="flex items-center gap-2 px-5 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors border border-gray-700 hover:border-blue-500">
-                  <Download size={18} /> {"parcourt"}
+                  <Download size={18} /> {"Parcours"}
                 </a>
-                <a href="assets/pdf/Activités.pdf" target="_blank" className="px-5 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg transition-colors border border-gray-700">
-                  {t.about.activities}
+                <a href="/pdf/Activités.pdf" target="_blank" className="flex items-center gap-2 px-5 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg transition-colors border border-gray-700">
+                  <Download size={18} /> {"Activités"}
                 </a>
               </div>
             </div>
