@@ -86,7 +86,7 @@ export default function App() {
   }
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [lang, setLang] = useState<Lang>('en'); // 'en' or 'fr'
+  const [lang, setLang] = useState<Lang>('fr'); // 'en' or 'fr'
   const [selectedProject, setSelectedProject] = useState<Project | null>(null); // Project modal state
 
   // --- CONTENU / TRADUCTIONS ---
@@ -235,6 +235,16 @@ export default function App() {
       img1:"" ,
       img2: ""
     },
+    
+    {
+      title: lang === 'en' ? "Car infotainment System" : "Système Infodivertissement Automobile",
+      desc: lang === 'en' ? "Development of a web application that connects to an alfa roméo Giulietta to replace the OEM infotainment system." : "Développement d'une application web se connectant à une alfa roméo Giulietta pour remplacer le système infodivertissement d'origine.",
+      link: "/pdf/CarSystem.pdf",
+      tags: ["React", "Node.js", "CAN Bus"],
+      img: "/infotainment.png",
+      img1: "/homeInfotainment.png",
+      img2: "/radioAlfa.png"
+    },
     { 
       title: lang === 'en' ? "Robotics Project" : "Projet Robotique", 
       desc: lang === 'en' ? "Design and C++ programming of an autonomous mobile robot." : "Conception et programmation C++ d'un robot mobile autonome.", 
@@ -382,7 +392,7 @@ export default function App() {
             className="bg-gray-800 hover:bg-gray-700 text-2xl p-3 rounded-full shadow-lg border border-gray-700 transition-transform hover:scale-110 active:scale-95"
             title={lang === 'fr' ? "Passer en Français" : "Switch to English"}
           >
-            {lang === 'en' ? '🇫🇷' : '🇬🇧'}
+            {lang === 'fr' ? '🇫🇷' : '🇬🇧'}
           </button>
 
           {/* Bouton Menu */}
