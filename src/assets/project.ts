@@ -60,12 +60,4 @@ export const getProjects = (lang: Lang) => [
       img1: "/shema.png",
       img2: "/winform.png"
     },
-    { 
-      title: lang === 'en' ? "Odomo Project" : "Projet Odomo", 
-      desc: lang === 'en' ? "Java application aggregating real-time weather data." 
-      : "Application Java agrégeant des données météorologiques en temps réel.", 
-      link: "/pdf/Odomo.pdf",
-      tags: ["Java"],
-      img: "/Odomo.png"
-    },
   ];
