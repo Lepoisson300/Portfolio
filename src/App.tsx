@@ -468,8 +468,8 @@ export default function App() {
             
             <div className="flex justify-center gap-6 pt-4 relative z-10">
               <a href="https://github.com/Lepoisson300" target="_blank" className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-800 rounded-full"><Github size={24}/></a>
-              <a href="/pdf/CVfrancais.pdf" target="_blank" className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1 p-2 hover:bg-blue-900/20 rounded-lg transition-colors">{t.contact.cvFr} <Download size={14}/></a>
-              <a href="/pdf/CVenglais.pdf" target="_blank" className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1 p-2 hover:bg-blue-900/20 rounded-lg transition-colors">{t.contact.cvEn} <Download size={14}/></a>
+              <a href="/pdf/CV-French-March2026.pdf" target="_blank" className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1 p-2 hover:bg-blue-900/20 rounded-lg transition-colors">{t.contact.cvFr} <Download size={14}/></a>
+              <a href="/pdf/CV-English-March2026.pdf" target="_blank" className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1 p-2 hover:bg-blue-900/20 rounded-lg transition-colors">{t.contact.cvEn} <Download size={14}/></a>
             </div>
           </div>
         </section>
