@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Home, User, Briefcase, Mail, Download, Github, Linkedin, ChevronDown, Eye, FileText } from 'lucide-react';
+import {getProjects} from './assets/project';
+import {contents} from './assets/text';
 
 // --- COMPOSANT MATRIX RAIN ---
 const MatrixRain = () => {
@@ -86,94 +88,11 @@ export default function App() {
   }
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [lang, setLang] = useState<Lang>('en'); // 'en' or 'fr'
+  const [lang, setLang] = useState<Lang>('fr'); // 'en' or 'fr'
   const [selectedProject, setSelectedProject] = useState<Project | null>(null); // Project modal state
 
   // --- CONTENU / TRADUCTIONS ---
-  const content = {
-    en: {
-      menu: { home: 'Home', about: 'About', projects: 'Projects', contact: 'Contact' },
-      hero: {
-        subtitle: "Here begins innovation",
-        phrases: [
-          "Here begins innovation",
-          "I build AI Solutions",
-          "I create Video Games",
-          "I develop Robust Software"
-        ],
-        viewWork: "View My Work",
-        contactMe: "Contact Me",
-      },
-      about: {
-        badge: "WHO AM I ?",
-        title1: "Musician, Worker,",
-        title2: "Athlete & Adventurer",
-        desc: "Passionate about creating systems that matter. My journey blends technical expertise with a creative mindset, allowing me to approach problems from unique angles. I thrive in challenging environments where innovation is key.",
-        cv: "/assets",
-        activities: "Activities"
-      },
-      projects: {
-        badge: "PORTFOLIO",
-        title: "Selected Projects",
-        desc: "A deep dive into my technical journey, featuring robotics, game development, and complex software architectures."
-      },
-      contact: {
-        title: "Let's Work Together",
-        desc: "I'm currently available for freelance work or full-time positions. If you have a project that needs a creative touch, get in touch.",
-        email: "Email Me",
-        linkedin: "LinkedIn",
-        locTitle: "Location",
-        phoneTitle: "Phone",
-        cvFr: "CV Français",
-        cvEn: "CV English"
-      },
-      modal: {
-        viewPdf: "View Full Project (PDF)",
-        close: "Close"
-      }
-    },
-    fr: {
-      menu: { home: 'Accueil', about: 'À Propos', projects: 'Projets', contact: 'Contact' },
-      hero: {
-        subtitle: "Ici commence l'innovation",
-        phrases: [
-          "Ici commence l'innovation",
-          "Je conçois des I.A.",
-          "Je crée des Jeux Vidéo",
-          "Je développe des Logiciels"
-        ],
-        viewWork: "Voir mes projets",
-        contactMe: "Me contacter",
-      },
-      about: {
-        badge: "QUI SUIS-JE ?",
-        title1: "Musicien, Travailleur,",
-        title2: "Athlète & Aventurier",
-        desc: "Passionné par la création de systèmes impactants. Mon parcours mêle expertise technique et esprit créatif, me permettant d'aborder les problèmes sous des angles uniques. Je m'épanouis dans les environnements stimulants où l'innovation est clé.",
-        cv: "CV / Parcours",
-        activities: "Activités"
-      },
-      projects: {
-        badge: "PORTFOLIO",
-        title: "Projets Sélectionnés",
-        desc: "Une plongée dans mon parcours technique, incluant la robotique, le développement de jeux et les architectures logicielles complexes."
-      },
-      contact: {
-        title: "Travaillons Ensemble",
-        desc: "Je suis actuellement disponible pour des missions freelance ou des postes à temps plein. Si vous avez un projet qui nécessite une touche créative, contactez-moi.",
-        email: "M'écrire",
-        linkedin: "LinkedIn",
-        locTitle: "Localisation",
-        phoneTitle: "Téléphone",
-        cvFr: "CV Français",
-        cvEn: "CV Anglais"
-      },
-      modal: {
-        viewPdf: "Voir le projet complet (PDF)",
-        close: "Fermer"
-      }
-    }
-  };
+  const content = contents
 
   const t = content[lang]; // Contenu actuel
 
@@ -225,56 +144,7 @@ export default function App() {
   };
 
   // --- DATA PROJETS (DYNAMIQUE) ---
-  const projects = [
-    { 
-      title: lang === 'en' ? "AI Creation Project" : "Projet I.A.", 
-      desc: lang === 'en' ? "Implementation of a strategic board game AI using Minimax algorithms." : "Implémentation d'une I.A. de jeu de plateau stratégique utilisant l'algorithme Minimax.", 
-      link: "/pdf/Towa.pdf",
-      tags: ["Java"],
-      img: "/towa_6.png",
-      img1:"" ,
-      img2: ""
-    },
-    { 
-      title: lang === 'en' ? "Robotics Project" : "Projet Robotique", 
-      desc: lang === 'en' ? "Design and C++ programming of an autonomous mobile robot." : "Conception et programmation C++ d'un robot mobile autonome.", 
-      link: "/pdf/Robotique.pdf",
-      tags: ["C++", "Arduino", "Fusion360"],
-      img: "/guido.png",
-      img1: "/fusion360.png",
-      img2: "/lidar.jpg"
-    },
-    { 
-      title: lang === 'en' ? "Video Game Project" : "Projet Jeu Vidéo", 
-      desc: lang === 'en' ? "Full cycle creation and publication of a 3D game with Unreal Engine." : "Création complète et publication d'un jeu 3D avec Unreal Engine.", 
-      link: "/pdf/UE.pdf",
-      tags: ["Unreal Engine", "C++", "Blueprints"],
-      img: "/UE.png",
-      img1: "/halo.jpeg" ,
-      img2: "/blueprint.jpeg"
-    },
-    { 
-      title: lang === 'en' ? "R/place Project" : "Projet R/place", 
-      desc: lang === 'en' ? "Complex API usage to recreate the social experiment Reddit's R/place." : "Utilisation d'API complexe pour recréer l'expérience sociale Reddit R/place.", 
-      link: "/pdf/Rplace.pdf",
-      tags: ["API", "React", "Node.js"],
-      img: "/pixelWar.png"
-    },
-    { 
-      title: lang === 'en' ? "Application Project" : "Projet Application", 
-      desc: lang === 'en' ? "Development and deployment of a C# environment management application." : "Développement et déploiement d'une application C# de gestion environnementale.", 
-      link: "/pdf/CSharp.pdf",
-      tags: ["C#", ".NET", "WPF","python","SQL"],
-      img: "/planete.png"
-    },
-    { 
-      title: lang === 'en' ? "Odomo Project" : "Projet Odomo", 
-      desc: lang === 'en' ? "Java application aggregating real-time weather data." : "Application Java agrégeant des données météorologiques en temps réel.", 
-      link: "/pdf/Odomo.pdf",
-      tags: ["Java"],
-      img: "/Odomo.png"
-    },
-  ];
+  const projects: Project[] = getProjects(lang);
 
   return (
     <div className="bg-[#0f1012] text-gray-200 font-sans overflow-x-hidden selection:bg-blue-500 selection:text-white relative">
@@ -382,7 +252,7 @@ export default function App() {
             className="bg-gray-800 hover:bg-gray-700 text-2xl p-3 rounded-full shadow-lg border border-gray-700 transition-transform hover:scale-110 active:scale-95"
             title={lang === 'fr' ? "Passer en Français" : "Switch to English"}
           >
-            {lang === 'en' ? '🇫🇷' : '🇬🇧'}
+            {lang === 'fr' ? '🇫🇷' : '🇬🇧'}
           </button>
 
           {/* Bouton Menu */}
@@ -598,8 +468,8 @@ export default function App() {
             
             <div className="flex justify-center gap-6 pt-4 relative z-10">
               <a href="https://github.com/Lepoisson300" target="_blank" className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-800 rounded-full"><Github size={24}/></a>
-              <a href="/pdf/CVfrancais.pdf" target="_blank" className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1 p-2 hover:bg-blue-900/20 rounded-lg transition-colors">{t.contact.cvFr} <Download size={14}/></a>
-              <a href="/pdf/CVenglais.pdf" target="_blank" className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1 p-2 hover:bg-blue-900/20 rounded-lg transition-colors">{t.contact.cvEn} <Download size={14}/></a>
+              <a href="/pdf/CV-French-March2026.pdf" target="_blank" className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1 p-2 hover:bg-blue-900/20 rounded-lg transition-colors">{t.contact.cvFr} <Download size={14}/></a>
+              <a href="/pdf/CV-English-March2026.pdf" target="_blank" className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1 p-2 hover:bg-blue-900/20 rounded-lg transition-colors">{t.contact.cvEn} <Download size={14}/></a>
             </div>
           </div>
         </section>
